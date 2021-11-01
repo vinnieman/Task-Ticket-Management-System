@@ -80,12 +80,16 @@ passport.authenticate('local', {
   res.render('login.ejs', {message: req.flash('message')})
 })
 app.get('/register', checkNotAuthenticated, (req, res) => {
-    res.render('register.ejs')
+    res.render('register.ejs', {message: req.flash('message')})
 })
 
 app.post('/register', checkNotAuthenticated, async (req,res) => {
     try {
-        const hashedPassword = await bcrypt.hash(req.body.password, 10)
+      if(req.body.password == req.body.Cpassword) 
+      hashedPassword = await bcrypt.hash(req.body.password, 10)
+      else {
+        req.flash('message', 'Passwords do not match')
+      }
         let userData = {
             username: req.body.name,
             email: req.body.email,
@@ -114,7 +118,7 @@ app.post('/groups', checkAuthenticated, async (req,res) => {
       groupPassword: req.body.grouppassword,
       groupMembers: ''
   }
-        let sql = 'INSERT INTO fuck SET ?'
+        let sql = 'INSERT INTO groop SET ?'
         let query = con.query(sql, groupData, (err, result) => {
           if (err) throw err
           console.log("Data Entered!")
@@ -160,7 +164,7 @@ app.get('/joinGroup', checkAuthenticated, checkIfNotInGroup, (req, res) =>{
 
   app.post('/joinGroup', checkAuthenticated, checkIfNotInGroup, async (req,res,done) => {
     try{
-    con.query("SELECT * FROM fuck WHERE groupName = ?", [req.body.groupName1], function(err, rows){ //Pull row from db into row,
+    con.query("SELECT * FROM groop WHERE groupName = ?", [req.body.groupName1], function(err, rows){ //Pull row from db into row,
       console.log(err)
       console.log(rows)
       if (err) return done(req.flash('message', err))
@@ -173,7 +177,7 @@ app.get('/joinGroup', checkAuthenticated, checkIfNotInGroup, (req, res) =>{
         req.user.groupID = rows[0].id
         var x = rows[0].groupMembers + `${req.user.id}b`
         con.query(`UPDATE users SET groupID = ${rows[0].id} WHERE id = ${req.user.id}`)
-        //con.query(`UPDATE fuck SET groupMembers = ${x} WHERE id = ${rows[0].id}`)
+        //con.query(`UPDATE groop SET groupMembers = ${x} WHERE id = ${rows[0].id}`)
         return done(null,rows[0])
       }
       //if (bcrypt.compare(password, dbPassword)) return done(null, rows[0])
@@ -187,6 +191,10 @@ app.get('/joinGroup', checkAuthenticated, checkIfNotInGroup, (req, res) =>{
   app.delete('/logout', (req, res) => {
     req.logOut()
     res.redirect('/login')
+  })
+  app.delete('/leavegroup', (req,res) => {
+    con.query(`UPDATE users SET groupID = 0 WHERE id = ${req.user.id}`)
+    res.redirect('/')
   })
   function checkAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
@@ -218,4 +226,4 @@ app.get('/joinGroup', checkAuthenticated, checkIfNotInGroup, (req, res) =>{
 
   }
 
-app.listen(3100)
+app.listen(80)
