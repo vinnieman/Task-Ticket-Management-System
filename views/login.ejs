@@ -1,3 +1,6 @@
+<% if (message) { %>
+  <div class="alert alert-info"><%= message %></div>
+<% } %>
 <head>
   <head>
     <meta charset="utf-8">
@@ -15,8 +18,8 @@
      <h1>Sign In</h1> 
     <form class="login-form" action="/login" method = "POST">
       <div>
-        <input type="email" id="email" name="email"
-        placeholder = "Email" required>
+        <input type="text" id="username" name="username"
+        placeholder = "Username" required>
       </div> 
       <div>
         <input type="password" id="password" name="password"
