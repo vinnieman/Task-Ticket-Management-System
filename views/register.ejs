@@ -7,6 +7,9 @@
     </head>
   </head>
   <body>
+    <% if (message) { %>
+      <div class="alert alert-info"><%= message %></div>
+  <% } %>
     <div class="login-page">
         <div class="form">
   <h1>Sign Up</h1>
@@ -22,6 +25,10 @@
 <div>
     <input type="password" id="password" name="password"
     placeholder = "Password" required>
+</div>
+<div>
+  <input type="password" id="Cpassword" name="Cpassword"
+  placeholder = "Confirm Password" required>
 </div>
 <button type = "submit">Register</button>
 </form>

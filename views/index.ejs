@@ -39,12 +39,12 @@
             <span class="links_name">Tickets</span>
           </a>
         </li>
-        <li>
+        <!-- <li>
           <a href="#">
             <i class='bx bx-message' ></i>
             <span class="links_name">Messages</span>
           </a>
-        </li>
+        </li> -->
         <li class="log_out">
             <i class='bx bx-log-out'></i>
             <form action="/logout?_method=DELETE" method = "POST">
@@ -60,12 +60,12 @@
         <span class="dashboard">Dashboard</span>
       </div>
       <div class="search-box">
-        <input type="text" placeholder="Search...">
+        <input type="text" placeholder="Search...(CURRENTLY NOT FUNCTIONAL)">
         <i class='bx bx-search' ></i>
       </div>
       <div class="profile-details">
         <!--<img src="images/profile.jpg" alt="">-->
-        <span class="admin_name">User Proflie</span>
+        <span class="admin_name">User Profile (CURRENTLY NOT FUNCTIONAL)</span>
         <i class='bx bx-chevron-down' ></i>
       </div>
     </nav>
@@ -73,6 +73,9 @@
         <% if (message) { %>
             <div class="alert alert-info"><%= message %></div>
         <% } %>
+        <p><form action="/leavegroup?_method=DELETE" method = "POST">
+          <span class="links_name"><button class ="links_name">Leave Group</button></span>
+      </form></p>
       <!-- <div class="overview-boxes">
         <div class="box">
           <div class="right-side">
