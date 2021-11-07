@@ -194,6 +194,7 @@ app.get('/joinGroup', checkAuthenticated, checkIfNotInGroup, (req, res) =>{
   })
   app.delete('/leavegroup', (req,res) => {
     con.query(`UPDATE users SET groupID = 0 WHERE id = ${req.user.id}`)
+    req.flash('message', 'Successfully left group.')
     res.redirect('/')
   })
   function checkAuthenticated(req, res, next) {
