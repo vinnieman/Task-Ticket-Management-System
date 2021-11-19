@@ -32,20 +32,24 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
   passport.use('local', new LocalStrategy({
-      usernameField: 'username', 
+      usernameField: 'email', 
       passwordField: 'password', 
       passReqToCallback: true}, 
-      function (req, username, password, done){
-              if(!username || !password) {return done(null, false, req.flash('message', 'All fields are required.'))} //If user does not enter a field, tell user to do so
-              con.query("SELECT * FROM users WHERE username = ?", [username], function(err, rows){ //Pull row from db into row,
+      function (req, email, password, done){
+              if(!email || !password) {return done(null, false, req.flash('message', 'All fields are required.'))} //If user does not enter a field, tell user to do so
+              con.query('SELECT * FROM users WHERE email = "' + email + '"', function(err, rows){ //Pull row from db into row,
                   console.log(err)
                   console.log(rows)
                   if (err) return done(req.flash('message', err))
                   if(!rows.length) { 
-                      return done(null, false, req.flash('message', 'Invalid username or password.'))}
+                      return done(null, false, req.flash('message', 'Invalid username.'))}
                   var dbPassword = rows[0].password
-                  if (bcrypt.compare(password, dbPassword)) return done(null, rows[0])
-                  else return done(null,false, req.flash('message', 'Invalid username or password.'))
+                  bcrypt.compare(password, dbPassword, function(err,res){
+                    if (err) throw err
+                    if(res) return done(null, rows[0])
+                    else return done(null,false, req.flash('message', 'Invalid password.'))
+                  }) 
+                 
               })
       }
   )
@@ -85,6 +89,11 @@ app.get('/register', checkNotAuthenticated, (req, res) => {
 
 app.post('/register', checkNotAuthenticated, async (req,res) => {
     try {
+      con.query('SELECT * FROM users where email = "'+ req.body.email +'"', async function(err, rows){
+        console.log(err)
+        console.log(rows)
+        if (err) return done(req.flash('message', err))
+        if (!rows.length){
       if(req.body.password == req.body.Cpassword) 
       hashedPassword = await bcrypt.hash(req.body.password, 10)
       else {
@@ -103,6 +112,12 @@ app.post('/register', checkNotAuthenticated, async (req,res) => {
         })
 
         res.redirect('/login')
+      }
+       else {
+        req.flash('message', 'Email is already in use.')
+        res.redirect('/register')
+    }
+    })
     } catch {
         res.redirect('/register')
     }
