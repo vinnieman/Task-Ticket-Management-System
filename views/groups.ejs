@@ -83,8 +83,25 @@
                       placeholder = "Password">
                     </div>
                     <button>Create Group</button>
-                    </form>
-                    </form>
+                    </form>               
+                </div>
+                <div class="new-boxes">
+                  <button class="createBtn" onclick="showForm1()">New<i class="bx bx-plus bx-sm"></i></button>
+              </div>
+                <div class="new-project-form1" id="new-project-form1">
+                  <div class ="joinGroup">
+                    <form class="join-Group-form" action="/joinGroup" method = "POST">
+                        <div>
+                          <input type="text" id="groupName1" name="groupName1"
+                          placeholder = "Group Name" required>
+                        </div> 
+                        <div>
+                          <input type="password" id="groupPassword1" name="groupPassword1"
+                          placeholder = "Password" required>
+                        </div>
+                        <button>Join Group</button>
+                        </form>
+                </div>
                 </div>
               <span class="all_projects">Your Projects</span>
               <div class="overview-boxes">
@@ -103,6 +120,9 @@
           <script>
               function showForm(){
                   document.getElementById("new-project-form").style.display = 'block';
+              }
+              function showForm1(){
+                  document.getElementById("new-project-form1").style.display = 'block';
               }
               function hideForm(){
                   document.getElementById("new-project-form").style.display = 'none';
