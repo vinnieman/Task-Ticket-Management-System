@@ -26,12 +26,6 @@
                   </a>
                 </li>
                 <li>
-                    <a href="/joinGroup">
-                      <i class='bx bx-box' ></i>
-                      <span class="links_name">Join a Group</span>
-                    </a>
-                  </li>
-                <li>
                   <a href="/tickets">
                     <i class='bx bx-task' ></i>
                     <span class="links_name">Tickets</span>
@@ -91,16 +85,36 @@
                 <% if (message) { %>
                   <div class="alert alert-info"><%= message %></div>
               <% } %>
-             <!-- <span class="all_projects">Your Projects</span>
-              <div class="overview-boxes">
-                <div class="box">
-                  <div class="right-side">
-                    <div class="box-topic">Task Name</div>
-                    <div class="number">description</div>
+             <span class="all_projects">Your Tickets</span>
+                        <%
+                        if(ticketInfo.length!=0){
+                        var i=1;
+                        ticketInfo.forEach(function(ticketData){
+                        %>
+                        <div class="overview-boxes">
+                          <div class="box">
+                            <div class="right-side">
+                        <table>
+                          <tr>
+                            <th>Ticket Name</th>
+                            <th>Ticket Description</th>
+                            <th>Creation Date </th>
+                            <th>Due Date</th>
+                          </tr>
+                        <tr>
+                        <td><%=ticketData.ticketName %></td>
+                        <td><%=ticketData.ticketDescription %></td>
+                        <td><%=new Date(ticketData.createDate) %></td>
+                        <td><%=new Date(ticketData.dueDate)%></td>
+                        </tr>
+                      </table>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div> -->
+                      <% i++ })} %>
+
+
+            </div>
           </section>
           <script>
           function showForm(){
@@ -112,8 +126,3 @@
           </script>
     </body>
 </html>
-<!-- <h1> test </h1>
-
-
-<p><a href= "/">Dashboard</a></p>
- -->

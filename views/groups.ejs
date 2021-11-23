@@ -26,12 +26,6 @@
                 </a>
               </li>
               <li>
-                <a href="/joinGroup">
-                  <i class='bx bx-box' ></i>
-                  <span class="links_name">Join a Group</span>
-                </a>
-              </li>
-              <li>
                 <a href="/tickets">
                   <i class='bx bx-task' ></i>
                   <span class="links_name">Tickets</span>
@@ -68,6 +62,9 @@
               </div>
             </nav>
             <div class="home-content">
+              <% if (message) { %>
+                <div class="alert alert-info"><%= message %></div>
+            <% } %>
                 <span class="new_project">Create Group</span>
                 <div class="new-boxes">
                     <button class="createBtn" onclick="showForm()">New<i class="bx bx-plus bx-sm"></i></button>
@@ -110,8 +107,13 @@
                     <% if(group == 0){%>
                       <p>You are not in a group.</p>
                       <% } else { %>
-                      <p> You are in group <%= group%></p>
-                      <% } %>
+                        <%
+                        if(groupInfo.length!=0){
+                        var i=1;
+                        groupInfo.forEach(function(groupData){
+                        %>
+                        <p> You are in group <%=groupData.groupName %></p>
+                      <% })}} %>
                   </div>
                 </div>
               </div>
@@ -130,17 +132,3 @@
           </script>
     </body>
 </html>
-<!--
-<div class ="joinGroup">
-    <form class="join-Group-form" action="/groups" method = "POST">
-        <div>
-          <input type="text" id="groupName1" name="groupName1"
-          placeholder = "Group Name" required>
-        </div> 
-        <div>
-          <input type="password" id="password1" name="password1"
-          placeholder = "Password" required>
-        </div>
-        <button type = "submitJ">Join Group</button>
-        </form>
-</div> -->
