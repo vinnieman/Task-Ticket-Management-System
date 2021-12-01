@@ -91,21 +91,29 @@
                         var i=1;
                         ticketInfo.forEach(function(ticketData){
                         %>
-                        <div class="overview-boxes">
+                        <!--<div class="overview-boxes">
                           <div class="box">
-                            <div class="right-side">
+                            <div class="right-side"> -->
                         <table>
                           <tr>
                             <th>Ticket Name</th>
                             <th>Ticket Description</th>
                             <th>Creation Date </th>
                             <th>Due Date</th>
+                            <th>Status</th>
                           </tr>
                         <tr>
                         <td><%=ticketData.ticketName %></td>
                         <td><%=ticketData.ticketDescription %></td>
                         <td><%=new Date(ticketData.createDate) %></td>
                         <td><%=new Date(ticketData.dueDate)%></td>
+                        <td><% switch(ticketData.ticketstatus){
+                          case 0 : %> UNASSIGNED
+                          <%break; case 1: %> ASSIGNED
+                          <%break; case 2: %> COMPLETED
+                          <%break; default: %> ERROR
+                       <% break;} %>
+                        </td>
                         </tr>
                       </table>
                     </div>

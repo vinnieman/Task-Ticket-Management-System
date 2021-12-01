@@ -82,6 +82,7 @@
                     <button>Create Group</button>
                     </form>               
                 </div>
+                <span class="new_project">Join Group</span>
                 <div class="new-boxes">
                   <button class="createBtn" onclick="showForm1()">New<i class="bx bx-plus bx-sm"></i></button>
               </div>
@@ -114,7 +115,21 @@
                         %>
                         <p> You are in group <%=groupData.groupName %></p>
                       <% })}} %>
-                  </div>
+                      <%
+                      if(groupMembers.length!=0){
+                      var i=1;%>
+                      <table>
+                      <tr>
+                        <th>Group Members:</th>
+                      </tr>
+                      <%
+                      groupMembers.forEach(function(groupmembers){
+                      %>
+                      <tr>
+                      <td><%=groupmembers.username %></td>
+                      </tr>
+                    </table>
+                    <% i++ })} %>
                 </div>
               </div>
             </div>
