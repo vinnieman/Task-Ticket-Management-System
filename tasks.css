@@ -243,16 +243,57 @@
       font-size: 20pt;
       padding: 10px;
   }
+  input[type=text]{
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  input[type=text]:focus{
+    border: 2px solid #2697FF;
+  }
+  input[type=textarea]{
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  button.submitBtn, button.assignSubmitBtn{
+    font-size: medium;
+    padding: 5px;
+    margin-top: 5px;
+    border-radius: 5px;
+  }
+  
   .statIndicator {
     text-align: right;
     padding-top: 10px; 
     padding-bottom: 10px; 
     color: black; 
     border-radius: 8px;
-    width: 80%;
-    background-color: #2196F3;
   }
-  .home-content .new-task-form{
+  .Late{
+    width: 80%;
+    background-color: #f44336;
+  }
+  .OnTime{
+    width: 40%;
+     background-color: #04AA6D;
+  }
+  .task-complete-btn{
+    margin-right: 10px;
+    margin-top: 5px;
+    font-size: small;
+    padding: 10px;
+    border-radius: 8px;
+    background: whitesmoke;
+    color :yellowgreen
+  }
+  .task-delete-btn{
+    margin-top: 5px;
+    font-size: small;
+    padding: 10px;
+    border-radius: 8px;
+    background: whitesmoke;
+    color: red;
+  }
+  .home-content .new-task-form,.assign-task-form{
     max-width:300px;
     min-width:250px;
     margin-left: 20px;

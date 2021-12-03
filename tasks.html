@@ -33,12 +33,8 @@
                 <i class='bx bx-notepad'></i>
                 <span class="dashboard">Tasks</span>
               </div>
-              <div class="search-box">
-                <input type="text" placeholder="Search...">
-                <i class='bx bx-search' ></i>
-              </div>
               <div class="Profile">
-                <button class="profile-btn" onclick="ProfileBtn()"><i class="bx bxs-user-rectangle"></i>Profile</button>
+                <button class="profile-btn" onclick="ProfileBtn()"><i class=" bx bxs-user-rectangle"></i>Profile</button>
               </div>
             </nav>
             <div class="profile-details" id="profile-details">
@@ -53,17 +49,53 @@
                 <div class="overview">
                   <div class="box">
                     <div class="right-side">
-                      <div class="new-project">New Project</div>
+                      <div class="new-project">New Task</div>
                     </div>
-                    <button class="new-project-btn" onclick="showForm()"><i class="bx-md bx bx-list-plus"></i></button>
+                    <button class="new-project-btn" onclick="showNewForm()"><i class="bx-md bx bx-list-plus"></i></button>
                   </div>
                 </div>
                 <div class="new-task-form" id="new-task-form">
                     <form id ="form" method="post" name="form">
-                        <input id ="name" name ="name" placeholder="Task Name" type ="text">
-                        <textarea id ="description" name="description" placeholder="Task Description"></textarea>
-                        <button class="submitBtn" onclick='hideForm()'>Submit</button>
+                        <div class="taskName">Task Name</div>
+                        <input id ="name" type ="text">
+                        <div class="taskDescription">Task Description</div>
+                        <input type="text" id ="description" name="description" >
+                        <div class="dueDate">Date Due</div>
+                        <input type="datetime-local">
+                        <button class="submitBtn" onclick='hideNewForm()'>Submit</button>
                     </form>
+                </div>
+                <span class="new_project">Assign Task</span>
+                <div class="overview">
+                  <div class="box">
+                    <div class="right-side">
+                      <div class="new-project">New Assign</div>
+                    </div>
+                    <button class="new-project-btn" onclick="showAssignForm()"><i class='bx-md bx bx-list-ol'></i></button>
+                  </div>
+                </div>
+                <div class="assign-task-form" id="assign-task-form">
+                  <form id ="form" method="post" name="form">
+                    <div class="tasksAvailable">Tasks Available:</div>
+                    <div>
+                      <input type="radio" name="tasks" value="task1" checked>
+                      <label for="task1">Task Name 1</label>
+                    </div>
+                    <div>
+                      <input type="radio" name="tasks" value="task2" unchecked>
+                      <label for="task2">Task Name 2</label>
+                    </div>
+                    <div class="usersAvailable">Assign To:</div>
+                    <div>
+                      <input type="radio" name="users" value="member1"checked>
+                      <label for="member1">John Smith</label>
+                    </div>
+                    <div>
+                      <input type="radio" name="users" value="member2" unchecked>
+                      <label for="member2">Jen Williams</label>
+                    </div>
+                    <button class="assignSubmitBtn" onclick='hideAssignForm()'>Submit</button>
+                  </form>
                 </div>
               <span class="all_tasks">Your Tasks</span>
               <div class="overview-boxes">
@@ -71,27 +103,33 @@
                   <div class="right-side">
                     <div class="number">Task Name</div>
                     <div class="box-topic">description</div>
-                    <div class="date">Date: November 29 2021</div>
-                    <div class="status">On Time</div>
-                    <div class="statIndicator">OT</div>
+                    <div class="create-date">Created:November 18 2021</div>
+                    <div class="due-date">Due: November 29 2021</div>
+                    <div class="statIndicator OnTime">OnTime</div>
+                    <button class="task-complete-btn">Done<i class='bx-fw bx bx-check-square' ></i></button>
+                    <button class="task-delete-btn">Delete Task<i class='bx-fw bx bx-x-circle' ></i></button>
                   </div>
                 </div>
                 <div class="box">
                   <div class="right-side">
                     <div class="number">Task Name</div>
                     <div class="box-topic">description</div>
-                    <div class="date">Date: December 29 2021</div>
-                    <div class="status">Late</div>
-                    <div class="statIndicator">L</div>
+                    <div class="create-date">Created: December 1 2021</div>
+                    <div class="due-date">Due: December 29 2021</div>
+                    <div class="statIndicator Late">Late</div>
+                    <button class="task-complete-btn">Done<i class='bx bx-check-square' ></i></button>
+                    <button class="task-delete-btn">Delete Task<i class='bx bx-x-circle' ></i></button>
                   </div>
                 </div>
                 <div class="box">
                   <div class="right-side">
                     <div class="number">Task Name</div>
                     <div class="box-topic">description</div>
-                    <div class="date">Date: November 29 2021</div>
-                    <div class="status">Early</div>
-                    <div class="statIndicator">E</div>
+                    <div class="create-date">Created: November 1 2021</div>
+                    <div class="date">Due: November 29 2021</div>
+                    <div class="statIndicator OnTime">OnTime</div>
+                    <button class="task-complete-btn">Done<i class='bx bx-check-square' ></i></button>
+                    <button class="task-delete-btn">Delete Task<i class='bx bx-x-circle' ></i></button>
                   </div>
                 </div>
               </div>
@@ -107,11 +145,17 @@
                 }else
                   sidebarBtn.classList.replace("bx-menu-alt-left", "bx-menu");
                 }
-          function showForm(){
+                function showNewForm(){
                   document.getElementById("new-task-form").style.display = 'block';
                 }
-              function hideForm(){
+                function hideNewForm(){
                   document.getElementById("new-task-form").style.display = 'none';
+                }
+                function showAssignForm(){
+                  document.getElementById("assign-task-form").style.display = 'block';
+                }
+                function hideAssignForm(){
+                  document.getElementById("assign-task-form").style.display = 'none';
                 }
                 function ProfileBtn() {
               var x = document.getElementById("profile-details");

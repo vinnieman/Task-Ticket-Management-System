@@ -212,12 +212,12 @@
     font-size: 20px;
     font-weight: 500;
   }
-  .overview-boxes .box .project-link,.overview .box  .new-project-btn{
+  .overview-boxes .box .project-link,.new-project-btn{
     color: #2697FF;
     background: #F5F6FA;
     border-radius: 6px;
   }
-  .home-content .box .number, .new-project{
+  .home-content .box .number, .new-project,.join-project{
     display: inline-block;
     font-size: 28px;
     margin-top: -6px;
@@ -227,7 +227,7 @@
     white-space: nowrap;
     padding-right: 5px;
   }
-  .home-content .new_project{
+  .home-content .new_project, .join_project {
       font-size: 20pt;
       padding:  10px;
   }
