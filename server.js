@@ -136,6 +136,7 @@ try{
       if (err) throw err
       console.log("Data Entered!")
     })  
+    req.flash('message', 'Project created.')
     res.redirect('/')
     }
     else {
@@ -232,7 +233,7 @@ app.post('/joinGroup', checkAuthenticated, checkIfNotInGroup, async (req,res,don
       else {
         req.user.groupID = rows[0].id
         con.query('UPDATE users SET groupID = "'+ rows[0].id +'" WHERE id = "'+ req.user.id +'"')
-        return done(null,rows[0], req.flash('message', 'Project created.'))
+        return done(null,rows[0])
       }
     })
     res.redirect('/')
