@@ -64,20 +64,14 @@
                 </div>
                 <span class="new_project">Task Manager</span>
                 <div class="overview">
+                <div class="successMessage">Successfully Created New Task</div>
                   <div class="box">
                     <div class="right-side">
                       <div class="new-project">Create Task</div>
                     </div>
                     <button class="new-project-btn" onclick="newTaskBtn()"><i class="bx-md bx bx-list-plus"></i></button>
                   </div>
-                  <div class="box">
-                      <div class="right-side">
-                          <div class="new-project">Assign Task</div>
-                      </div>
-                    <button class="new-project-btn" onclick="assignTaskBtn()"><i class='bx-md bx bx-list-ol'></i></button>
-                  </div>
-                </div>
-                <div class="new-task-form" id="new-task-form">
+                  <div class="new-task-form" id="new-task-form">
                     <form id ="form" name="form">
                         <div class="taskName">Task Name</div>
                         <input id ="name" type ="text">
@@ -88,28 +82,36 @@
                         <button class="submitBtn" onclick=''>Submit</button>
                     </form>
                 </div>
-                <div class="assign-task-form" id="assign-task-form">
-                  <form id ="form" name="form">
-                    <div class="tasksAvailable">Tasks Available:</div>
-                    <div>
-                      <input type="radio" name="tasks" value="task1" checked>
-                      <label for="task1">Task Name 1</label>
-                    </div>
-                    <div>
-                      <input type="radio" name="tasks" value="task2" unchecked>
-                      <label for="task2">Task Name 2</label>
-                    </div>
-                    <div class="usersAvailable">Assign To:</div>
-                    <div>
-                      <input type="radio" name="users" value="member1"checked>
-                      <label for="member1">John Smith</label>
-                    </div>
-                    <div>
-                      <input type="radio" name="users" value="member2" unchecked>
-                      <label for="member2">Jen Williams</label>
-                    </div>
-                    <button class="assignSubmitBtn" onclick=''>Submit</button>
-                  </form>
+                <div class="successMessage">Successfully Assigned Task</div>
+                  <div class="box">
+                      <div class="right-side">
+                          <div class="new-project">Assign Task</div>
+                      </div>
+                    <button class="new-project-btn" onclick="assignTaskBtn()"><i class='bx-md bx bx-list-ol'></i></button>
+                  </div>
+                  <div class="assign-task-form" id="assign-task-form">
+                    <form id ="form" name="form">
+                      <div class="tasksAvailable">Tasks Available:</div>
+                      <div>
+                        <input type="radio" name="tasks" value="task1" checked>
+                        <label for="task1">Task Name 1</label>
+                      </div>
+                      <div>
+                        <input type="radio" name="tasks" value="task2" unchecked>
+                        <label for="task2">Task Name 2</label>
+                      </div>
+                      <div class="usersAvailable">Assign To:</div>
+                      <div>
+                        <input type="radio" name="users" value="member1"checked>
+                        <label for="member1">John Smith</label>
+                      </div>
+                      <div>
+                        <input type="radio" name="users" value="member2" unchecked>
+                        <label for="member2">Jen Williams</label>
+                      </div>
+                      <button class="assignSubmitBtn" onclick=''>Submit</button>
+                    </form>
+                  </div>
                 </div>
               <span class="all_tasks">Your Tasks</span>
               <div class="overview-boxes">
@@ -176,26 +178,26 @@
                 }
                 function newTaskBtn() {
                     var x = document.getElementById("new-task-form");
-                    if (x.style.display === "none") {
-                    x.style.display = "block";
-                    } else {
+                    if (x.style.display === "block") {
                     x.style.display = "none";
+                    } else {
+                    x.style.display = "block";
                     }
                 }
                 function assignTaskBtn() {
                     var x = document.getElementById("assign-task-form");
-                    if (x.style.display === "none") {
-                    x.style.display = "block";
-                    } else {
+                    if (x.style.display === "block") {
                     x.style.display = "none";
+                    } else {
+                    x.style.display = "block";
                     }
                 }
                 function ProfileBtn() {
                     var x = document.getElementById("profile-details");
-                    if (x.style.display === "none") {
-                    x.style.display = "block";
-                    } else {
+                    if (x.style.display === "block") {
                     x.style.display = "none";
+                    } else {
+                    x.style.display = "block";
                     }
                 }
           </script>

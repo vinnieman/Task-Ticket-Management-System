@@ -113,45 +113,19 @@
     font-size: 35px;
     margin-right: 10px;
   }
-  .home-section nav .search-box{
-    position: relative;
-    height: 50px;
-    max-width: 550px;
-    width: 100%;
-    margin: 0 20px;
-  }
-  nav .search-box input{
-    height: 100%;
-    width: 100%;
-    outline: none;
-    background: #F5F6FA;
-    border: 2px solid #EFEEF1;
-    border-radius: 6px;
-    font-size: 18px;
-    padding: 0 15px;
-  }
-  nav .search-box .bx-search{
-    position: absolute;
-    height: 40px;
-    width: 40px;
-    background: #2697FF;
-    right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
-    border-radius: 4px;
-    line-height: 40px;
-    text-align: center;
-    color: #fff;
-    font-size: 22px;
-    transition: all 0.4 ease;
-  }
-  .home-section nav .profile-btn{
+  .profile-btn{
     display: flex;
     align-items: center;
-    background: #F5F6FA;
+    background: #c0c0c0;
+    color: #2697FF;
     border-radius: 6px;
     height: 50px;
     padding: 10px;
+    border: none;
+  }
+  .profile-btn:hover{
+    background: #081D45;
+    color: #c0c0c0;
   }
   .home-section .profile-details{
     z-index: 101;
@@ -159,7 +133,8 @@
     right: 2%;
     align-items: center;
     position: absolute;
-    background: #2697FF;
+    background: #F5F6FA;
+    border: 2px solid black;
     border-radius: 4px;
     padding: 25px;
     white-space: nowrap;
@@ -222,7 +197,7 @@
     flex-wrap: wrap;
     padding: 0 20px;
   }
-  .overview-boxes .box, .overview .box{
+  .overview-boxes .box, .overview .box,.successMessage{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -234,14 +209,22 @@
     margin-left: 20px;
     box-shadow: 0 5px 10px rgba(0,0,0,0.1);
   }
+  .successMessage{
+    background: springgreen;
+    font-weight: bolder;
+  }
   .overview-boxes .box-topic .name{
     font-size: 20px;
     font-weight: 500;
   }
-  .overview-boxes .box .project-link,.overview .box  .new-project-btn{
+  .project-link,.new-project-btn{
     color: #2697FF;
     background: #F5F6FA;
     border-radius: 6px;
+  }
+  .project-link:hover,.new-project-btn:hover{
+    color:#c0c0c0;
+    background: #081D45;
   }
   .home-content .box .number, .new-project{
     display: inline-block;

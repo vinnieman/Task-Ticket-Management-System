@@ -50,20 +50,15 @@
             <div class="home-content">
                 <span class="new_project">Project Manager</span>
                 <div class="overview">
+                  <div class="successMessage">Successfully Created New Project</div>
+                  <div class="errorMessage">Error Creating New Project</div>
                   <div class="box">
                     <div class="right-side">
                       <div class="new-project">New Project</div>
                     </div>
                     <button class="new-project-btn" onclick="newProjectBtn()"><i class="bx-md bx bx-list-plus"></i></button>
                   </div>
-                  <div class="box">
-                    <div class="right-side">
-                      <div class="new-project">Join Project</div>
-                    </div>
-                    <button class="new-project-btn" onclick="joinProjectBtn()"><i class="bx-md bx bx-list-check"></i></button>
-                  </div>
-                </div>
-                <div class="new-project-form" id="new-project-form">
+                  <div class="new-project-form" id="new-project-form">
                     <form id ="newProjectForm">
                       <div class="header">Project Name</div>
                       <input id ="name" name ="name" placeholder="ex. test name" type ="text">
@@ -71,6 +66,24 @@
                       <textarea id ="description" name="description" placeholder="ex. description of project"></textarea>
                       <button class="submitBtn" onclick="">Submit</button>
                     </form>
+                  </div>
+                  <div class="successMessage">Successfully Joined Project</div>
+                  <div class="errorMessage">Error Joining Project</div>
+                  <div class="box">
+                    <div class="right-side">
+                      <div class="new-project">Join Project</div>
+                    </div>
+                    <button class="new-project-btn" onclick="joinProjectBtn()"><i class="bx-md bx bx-list-check"></i></button>
+                  </div>
+                  <div class="join-project-form" id="join-project-form">
+                    <form id="joinProjectForm">
+                      <div class="header">Project Name</div>
+                      <input id="name" type="text" placeholder="ex. taskforce">
+                      <div class="header">Password</div>
+                      <input id="pass" type="password" placeholder="ex. pass123">
+                      <button class="submitBtn" onclick="">Submit</button>
+                    </form>
+                  </div>
                 </div>
                 <div class="join-project-form" id="join-project-form">
                   <form id="joinProjectForm">
@@ -83,51 +96,34 @@
                 </div>
               <span class="all_projects">Your Projects</span>
               <div class="overview-boxes">
+                <div class="no-group-box">
+                  <div class="right-side">
+                    <div class="no-group">Please Create or Join a Group.</div>
+                  </div>
+                </div>
                 <div class="box">
                   <div class="right-side">
-                    <div class="number">Project #1</div>
+                    <div class="projectNumber">Project #1</div>
                     <div class="header">Project Name</div>
                     <div class="name">Test Name</div>
                     <div class="header">Total Tasks</div>
                     <div class="number">5</div>
                     <div class="header">Team Members</div>
                     <div class= "project-members">John Smith, Jen Williams, Kyle Logan,Jake Paul</div>
+                    <button class="leave-group-btn">Leave Group</button>
                   </div>
                   <button class="project-link"><i class='bx-md bx bx-right-arrow-alt' ></i></button>
                 </div>
                 <div class="box">
                   <div class="right-side">
-                    <div class="number">Project #2</div>
+                    <div class="projectNumber">Project #2</div>
                     <div class="header">Project Name</div>
                     <div class="name">Test Name</div>
                     <div class="header">Total Tasks</div>
                     <div class="number">7</div>
                     <div class="header">Team Members</div>
                     <div class= "project-members">John Smith, Jen Williams, Kyle Logan,Jake Paul</div>
-                  </div>
-                  <button class="project-link"><i class='bx-md bx bx-right-arrow-alt' ></i></button>
-                </div>
-                <div class="box">
-                  <div class="right-side">
-                    <div class="number">Project #3</div>
-                    <div class="header">Project Name</div>
-                    <div class="name">Test Name</div>
-                    <div class="header">Total Tasks</div>
-                    <div class="number">9</div>
-                    <div class="header">Team Members</div>
-                    <div class= "project-members">John Smith, Jen Williams, Kyle Logan,Jake Paul</div>
-                  </div>
-                  <button class="project-link"><i class='bx-md bx bx-right-arrow-alt' ></i></button>
-                </div>
-                <div class="box">
-                  <div class="right-side">
-                    <div class="number">Project #4</div>
-                    <div class="header">Project Name</div>
-                    <div class="name">Test Name</div>
-                    <div class="header">Total Tasks</div>
-                    <div class="number">2</div>
-                    <div class="header">Team Members</div>
-                    <div class= "project-members">John Smith, Jen Williams, Kyle Logan,Jake Paul</div>
+                    <button class="leave-group-btn">Leave Group</button>
                   </div>
                   <button class="project-link"><i class='bx-md bx bx-right-arrow-alt' ></i></button>
                 </div>
@@ -146,26 +142,26 @@
                 }
                 function newProjectBtn() {
                     var x = document.getElementById("new-project-form");
-                    if (x.style.display === "none") {
-                    x.style.display = "block";
-                    } else {
+                    if (x.style.display === "block") {
                     x.style.display = "none";
+                    } else {
+                    x.style.display = "block";
                     }
                 }
                 function joinProjectBtn() {
                     var x = document.getElementById("join-project-form");
-                    if (x.style.display === "none") {
-                    x.style.display = "block";
-                    } else {
+                    if (x.style.display === "block") {
                     x.style.display = "none";
+                    } else {
+                    x.style.display = "block";
                     }
                 }
                 function ProfileBtn() {
                   var x = document.getElementById("profile-details");
-                  if (x.style.display === "none") {
-                  x.style.display = "block";
-                  } else {
+                  if (x.style.display === "block") {
                   x.style.display = "none";
+                  } else {
+                  x.style.display = "block";
               }
             }
           </script>

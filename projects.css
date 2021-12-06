@@ -158,7 +158,10 @@
     margin-left: 30%;
     margin-top: 20px;
   }
-  button.submitBtn{
+  .leave-group-btn{
+    margin-left: 10px;
+  }
+  button.submitBtn,button.leave-group-btn{
     font-size: medium;
     padding: 5px;
     margin-top: 5px;
@@ -171,20 +174,42 @@
   .home-content .overview-boxes{
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-wrap: wrap;
     padding: 0 20px;
+    margin-left: -20px;
   }
-  .overview-boxes .box,.overview .box{
+  .no-group-box{
     display: flex;
     align-items: center;
     justify-content: center;
-    width: calc(100% / 4 - 15px);
+    width: calc(100% / 3 - 20px);
+    background: #fff;
+    padding: 15px 14px;
+    border-radius: 12px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    margin-top: -25%;
+    margin-left: 20px;
+  }
+  .overview-boxes .box,.overview .box,.successMessage,.errorMessage{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% / 3 - 20px);
     background: #fff;
     padding: 15px 14px;
     margin-bottom: 20px;
     border-radius: 12px;
+    margin-left: 20px;
     box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  }
+  .successMessage{
+    background: springgreen;
+    font-weight: bolder;
+  }
+  .errorMessage{
+    background: tomato;
+    font-weight: bolder;
   }
   .overview-boxes .box-topic .name{
     font-size: 26px;
@@ -202,6 +227,8 @@
     color: #2697FF;
     background: #c0c0c0;
     border-radius: 6px;
+    margin-left: 10px;
+    margin-bottom: 15px;
   }
   .project-link:hover,.new-project-btn:hover{
     color:#c0c0c0;
@@ -211,7 +238,7 @@
     font-size: 22px;
     margin-left: 20px;
   }
-  .home-content .box .number, .new-project,.join-project{
+  .projectNumber, .new-project,.join-project{
     display: inline-block;
     font-size: 28px;
     margin-top: -6px;
