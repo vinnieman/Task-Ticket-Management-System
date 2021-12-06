@@ -1,136 +1,163 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="UTF-8">
-    <title> Task.io | Dashboard </title>
-    <link rel="stylesheet" href="/public/assets/dashboard.css">
-    <!-- Boxicons CDN Link -->
-    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   </head>
-<body>
-  <div class="sidebar">
-    <div class="logo-details">
-      <i class='bx bx-menu sidebarBtn'></i>
-      <span class="logo_name">Task.io</span>
-    </div>
-      <ul class="nav-links">
-        <li>
-          <a href="/" class="active">
-            <i class='bx bx-grid-alt' ></i>
-            <span class="links_name">Dashboard</span>
-          </a>
-        </li>
-        <li>
-          <a href="/groups">
-            <i class='bx bx-box' ></i>
-            <span class="links_name">Create a Group</span>
-          </a>
-        </li>
-        <li>
-          <a href="/tickets">
-            <i class='bx bx-task' ></i>
-            <span class="links_name">Tickets</span>
-          </a>
-        </li>
-        <!-- <li>
-          <a href="#">
-            <i class='bx bx-message' ></i>
-            <span class="links_name">Messages</span>
-          </a>
-        </li> -->
-        <li class="log_out">
-            <i class='bx bx-log-out'></i>
-            <form action="/logout?_method=DELETE" method = "POST">
-                <span class="links_name"><button class ="links_name">Log out</button></span>
-            </form>
-        </li>
-      </ul>
-  </div>
-  <section class="home-section">
-    <nav>
-      <div class="sidebar-button">
-        <i class='bx bx-notepad'></i>
-        <span class="dashboard">Dashboard</span>
-      </div>
-      <div class="search-box">
-        <input type="text" placeholder="Search...(CURRENTLY NOT FUNCTIONAL)">
-        <i class='bx bx-search' ></i>
-      </div>
-      <div class="profile-details">
-        <!--<img src="images/profile.jpg" alt="">-->
-        <span class="admin_name">User Profile (CURRENTLY NOT FUNCTIONAL)</span>
-        <i class='bx bx-chevron-down' ></i>
-      </div>
-    </nav>
-    <div class="home-content">
-        <% if (message) { %>
-            <div class="alert alert-info"><%= message %></div>
-        <% } %>
-        <p><form action="/leavegroup?_method=DELETE" method = "POST">
-          <span class="links_name"><button class ="links_name">Leave Group</button></span>
-      </form></p>
-      <!-- <div class="overview-boxes">
-        <div class="box">
-          <div class="right-side">
-            <div class="box-topic">Project Name</div>
-            <div class="number">20 Tasks </div>
-          </div>
-          <i class='bx-pull-right bx-flashing-hover bx-sm bx bxs-inbox bx-border inbox one'></i>
-        </div>
-        <div class="box">
-          <div class="right-side">
-            <div class="box-topic">Project Name</div>
-            <div class="number">5 Tasks</div>
-          </div>
-          <i class='bx-pull-right bx bxs-inbox bx-flashing-hover bx-sm bx-border inbox two' ></i>
-        </div>
-        <div class="box">
-          <div class="right-side">
-            <div class="box-topic">Project Name</div>
-            <div class="number">7 Tasks</div>
-          </div>
-          <i class='bx-pull-right bx bxs-inbox bx-flashing-hover bx-sm bx-border inbox three' ></i>
-        </div>
-        <div class="box">
-          <div class="right-side">
-            <div class="box-topic">Project Name</div>
-            <div class="number">15 Tasks</div>
-          </div>
-          <i class='bx-pull-right bx bxs-inbox bx-flashing-hover bx-sm bx-border inbox four' ></i>
-        </div>
-      </div>
-    </div>
-    <div class="home-content-2">
-        <div class="overview-boxes-2">
-            <div class="box">
-                <div class="right-side">
-                  <div class="box-topic">Project Name</div>
-                  <div class="number">9 Tasks</div>
-                </div>
-                <i class='bx-pull-right bx bxs-inbox bx-flashing-hover bx-sm bx-border inbox one' ></i>
-              </div>
-            <div class="box">
-                <div class="right-side">
-                    <div class="box-topic">Project Name</div>
-                    <div class="number">12 Tasks</div>
-                </div>
-                <i class='bx-pull-right bx bxs-inbox bx-flashing-hover bx-sm bx-border inbox two' ></i>
+    <head>
+        <meta charset="UTF-8">
+        <title>task.io | Projects</title>
+        <link rel="stylesheet" href="/public/assets/projects.css">
+        <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    </head>
+    <body>
+        <div class="sidebar">
+            <div class="logo-details">
+              <i class='bx bx-menu sidebarBtn'></i>
+              <span class="logo_name">Task.io</span>
             </div>
-        </div>
-    </div>
-  </section> -->
-  <script>
-   let sidebar = document.querySelector(".sidebar");
-let sidebarBtn = document.querySelector(".sidebarBtn");
-sidebarBtn.onclick = function() {
-  sidebar.classList.toggle("active");
-  if(sidebar.classList.contains("active")){
-  sidebarBtn.classList.replace("bx-menu" ,"bx-menu-alt-left");
-}else
-  sidebarBtn.classList.replace("bx-menu-alt-left", "bx-menu");
-}
- </script>
-
-</body>
+              <ul class="nav-links">
+                <li>
+                  <a href="/" class="active">
+                    <i class='bx bx-box' ></i>
+                    <span class="links_name">Projects</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="/tickets">
+                    <i class='bx bx-task' ></i>
+                    <span class="links_name">Tasks</span>
+                  </a>
+                </li>
+              </ul>
+          </div>
+          <section class="home-section">
+            <nav>
+              <div class="sidebar-button">
+                <i class='bx bx-notepad'></i>
+                <span class="dashboard">Projects</span>
+              </div>
+              <div class="Profile">
+                <button class="profile-btn" onclick="ProfileBtn()"><i class="bx bxs-user-rectangle"></i>Profile</button>
+              </div>
+            </nav>
+            <div class="profile-details" id="profile-details">
+              <div class="Name"><%= name %></div>
+              <div class="userEmail"><%= email %></div>
+              <form action="/logout?_method=DELETE" method = "POST">
+                <span class="links_name"><button class ="close-profile-btn">Log out<i class='bx-fw bx bx-log-out' ></i></button></span>
+            </form>
+            </div>
+            <div class="home-content">
+                <% if (message) { %>
+                  <div class="alert alert-info"><%= message %></div>
+              <% } %>
+              <p><form action="/leavegroup?_method=DELETE" method = "POST">
+                <span class="links_name"><button class ="links_name">Leave Group</button></span>
+            </form></p>
+                <span class="new_project">Create Project</span>
+                <div class="overview">
+                  <div class="box">
+                    <div class="right-side">
+                      <div class="new-project">New Project</div>
+                    </div>
+                    <button class="new-project-btn" onclick="showForm()"><i class="bx-md bx bx-list-plus"></i></button>
+                  </div>
+                  <div class="new-project-form" id="new-project-form">
+                    <form id ="form" name= "form" action="/groups" method = "POST">
+                      <div>
+                        <input type="text" id="groupname" name="groupname"
+                        placeholder = "Group Name" required>
+                      </div> 
+                      <div>
+                        <input type="password" id="grouppassword" name="grouppassword"
+                        placeholder = "Password">
+                      </div>
+                      <button>Create Group</button>
+                      </form>
+                </div>
+                <span class ="join_project">Join Project</span>
+                <div class="overview">
+                  <div class ="box">
+                    <div class="left-side">
+                      <div class="join-project">Projects</div>
+                    </div>
+                    <button class="new-project-btn" onclick="showForm1()"><i class="bx-md bx bx-list-check"></i></button>
+                  </div>
+                 <div class="join-project-form" id="join-project-form">
+                  <div class ="joinGroup">
+                    <form class="join-Group-form" action="/joinGroup" method = "POST">
+                        <div>
+                          <input type="text" id="groupName1" name="groupName1"
+                          placeholder = "Group Name" required>
+                        </div> 
+                        <div>
+                          <input type="password" id="groupPassword1" name="groupPassword1"
+                          placeholder = "Password" required>
+                        </div>
+                        <button>Join Group</button>
+                        </form>
+                </div>
+                </div>   
+              <span class="all_projects">Your Projects</span>
+              <div class="overview-boxes">
+                <div class="box">
+                  <div class="right-side">
+                    <% if(group == 0){%>
+                      You are not in a group.
+                      <% } else { %>
+                        <%
+                        if(groupInfo.length!=0){
+                        var i=1;
+                        groupInfo.forEach(function(groupData){
+                        %>
+                        <div class="number"><%=groupData.groupName %></div>
+                      <% })}} %>
+                      <%
+                      if(groupMembers.length!=0){
+                      var i=1; %>
+                      <div class= "box-project-members">
+                      Members: 
+                      <% groupMembers.forEach(function(groupmembers){
+                      %>
+                      <%= groupmembers.username %>, 
+                      <% i++ })} %>
+                  </div>
+                  <button class="project-link"><i class='bx-md bx bx-right-arrow-alt' ></i></button>
+                </div>
+              </div>
+            </div>
+          </section>
+          <script>
+               let sidebar = document.querySelector(".sidebar");
+               let sidebarBtn = document.querySelector(".sidebarBtn");
+               sidebarBtn.onclick = function() {
+                sidebar.classList.toggle("active");
+                if(sidebar.classList.contains("active")){
+                  sidebarBtn.classList.replace("bx-menu" ,"bx-menu-alt-left");
+                }else
+                  sidebarBtn.classList.replace("bx-menu-alt-left", "bx-menu");
+                }
+                function showForm(){
+                  var text = document.getElementById("new-project-form");
+                  if (text.style.display === "block") {
+                    text.style.display = "none";
+                  } else {
+                    text.style.display = "block";
+                 }
+              }
+              function showForm1(){
+                  var text = document.getElementById("join-project-form");
+                  if (text.style.display === "block") {
+                    text.style.display = "none";
+                  } else {
+                    text.style.display = "block";
+                 }
+              }
+              function ProfileBtn() {
+              var x = document.getElementById("profile-details");
+              if (x.style.display === "none") {
+              x.style.display = "block";
+              } else {
+              x.style.display = "none";
+              }
+            }
+          </script>
+    </body>
 </html>

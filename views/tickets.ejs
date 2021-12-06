@@ -7,130 +7,212 @@
         <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     </head>
     <body>
-        <div class="sidebar">
-            <div class="logo-details">
-              <i class='bx bx-menu sidebarBtn'></i>
-              <span class="logo_name">Task.io</span>
-            </div>
-            <ul class="nav-links">
-                <li>
-                  <a href="/" class="active">
-                    <i class='bx bx-grid-alt' ></i>
-                    <span class="links_name">Dashboard</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="/groups">
-                    <i class='bx bx-box' ></i>
-                    <span class="links_name">Create a Group</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="/tickets">
-                    <i class='bx bx-task' ></i>
-                    <span class="links_name">Tickets</span>
-                  </a>
-                </li>
-                <!-- <li>
-                  <a href="#">
-                    <i class='bx bx-message' ></i>
-                    <span class="links_name">Messages</span>
-                  </a>
-                </li> -->
-                <li class="log_out">
-                    <i class='bx bx-log-out'></i>
-                    <form action="/logout?_method=DELETE" method = "POST">
-                        <span class="links_name"><button class ="links_name">Log out</button></span>
-                    </form>
-                </li>
-              </ul>
-          </div>
+      <div class="sidebar">
+        <div class="logo-details">
+          <i class='bx bx-menu sidebarBtn'></i>
+          <span class="logo_name">Task.io</span>
+        </div>
+          <ul class="nav-links">
+            <li>
+              <a href="/" class="active">
+                <i class='bx bx-box' ></i>
+                <span class="links_name">Projects</span>
+              </a>
+            </li>
+            <li>
+              <a href="/tickets">
+                <i class='bx bx-task' ></i>
+                <span class="links_name">Tasks</span>
+              </a>
+            </li>
+          </ul>
+      </div>
           <section class="home-section">
             <nav>
               <div class="sidebar-button">
                 <i class='bx bx-notepad'></i>
                 <span class="dashboard">Tasks</span>
               </div>
-              <div class="search-box">
-                <input type="text" placeholder="Search...(CURRENTLY NOT FUNCTIONAL)">
-                <i class='bx bx-search' ></i>
-              </div>
-              <div class="profile-details">
-                <!--<img src="images/profile.jpg" alt="">-->
-                <span class="admin_name">User Profile (CURRENTLY NOT FUNCTIONAL)</span>
-                <i class='bx bx-chevron-down' ></i>
+              <div class="Profile">
+                <button class="profile-btn" onclick="ProfileBtn()"><i class=" bx bxs-user-rectangle"></i>Profile</button>
               </div>
             </nav>
+            <div class="profile-details" id="profile-details">
+              <div class="Name"><%= name %></div>
+              <div class="userEmail"><%= email %></div>
+              <form action="/logout?_method=DELETE" method = "POST">
+                <span class="links_name"><button class ="close-profile-btn">Log out<i class='bx-fw bx bx-log-out' ></i></button></span>
+            </form>
+            </div>
             <div class="home-content">
-                <span class="new_project">Create Ticket</span>
-                <div class="new-boxes">
-                    <button class="createBtn" onclick="showForm()">New<i class="bx bx-plus bx-sm"></i></button>
-                </div>
-                <div class="new-task-form" id="new-task-form">
-                    <form action="/tickets" method = "POST">
-                        <div>
-                            <input type="text" id="ticketName" name="ticketName"
-                            placeholder = "Ticket Name" required>
-                        </div> 
-                        <div>
-                           <input type ="text" id="ticketDesc" name="ticketDesc"
-                           placeholder = "Ticket Description" required>
-                       </div> 
-                       <div>
-                           <input type="datetime-local" id="dueTime" name="dueTime"
-                           placeholder = "Ticket Due Date & Time" required>
-                       </div>
-                       <button>Submit Ticket</button>
-                </div>
-                <% if (message) { %>
-                  <div class="alert alert-info"><%= message %></div>
-              <% } %>
-             <span class="all_projects">Your Tickets</span>
-                        <%
-                        if(ticketInfo.length!=0){
-                        var i=1;
-                        ticketInfo.forEach(function(ticketData){
-                        %>
-                        <!--<div class="overview-boxes">
-                          <div class="box">
-                            <div class="right-side"> -->
-                        <table>
-                          <tr>
-                            <th>Ticket Name</th>
-                            <th>Ticket Description</th>
-                            <th>Creation Date </th>
-                            <th>Due Date</th>
-                            <th>Status</th>
-                          </tr>
-                        <tr>
-                        <td><%=ticketData.ticketName %></td>
-                        <td><%=ticketData.ticketDescription %></td>
-                        <td><%=new Date(ticketData.createDate) %></td>
-                        <td><%=new Date(ticketData.dueDate)%></td>
-                        <td><% switch(ticketData.ticketstatus){
-                          case 0 : %> UNASSIGNED
-                          <%break; case 1: %> ASSIGNED
-                          <%break; case 2: %> COMPLETED
-                          <%break; default: %> ERROR
-                       <% break;} %>
-                        </td>
-                        </tr>
-                      </table>
+              <% if (message) { %>
+                <div class="alert alert-info"><%= message %></div>
+            <% } %>
+                <span class="new_project">Create Task</span>
+                <div class="overview">
+                  <div class="box">
+                    <div class="right-side">
+                      <div class="new-project">New Task</div>
                     </div>
+                    <button class="new-project-btn" onclick="showNewForm()"><i class="bx-md bx bx-list-plus"></i></button>
                   </div>
                 </div>
-                      <% i++ })} %>
-
-
+                <div class="new-task-form" id="new-task-form">
+                  <form id = "form" name ="form" action="/tickets" method = "POST">
+                    <div> Task Name
+                        <input type="text" id="ticketName" name="ticketName"
+                        placeholder = "Ticket Name" required>
+                    </div> 
+                    <div> Task Description
+                       <input type ="text" id="ticketDesc" name="ticketDesc"
+                       placeholder = "Ticket Description" required>
+                   </div> 
+                   <div> Date Due
+                       <input type="datetime-local" id="dueTime" name="dueTime"
+                       placeholder = "Ticket Due Date & Time" required>
+                   </div>
+                   <button>Submit Task</button>
+                   </form>
+                </div>
+                <span class="new_project">Assign Task</span>
+                <div class="overview">
+                  <div class="box">
+                    <div class="right-side">
+                      <div class="new-project">New Assign</div>
+                    </div>
+                    <button class="new-project-btn" onclick="showAssignForm()"><i class='bx-md bx bx-list-ol'></i></button>
+                  </div>
+                </div>
+                <div class="assign-task-form" id="assign-task-form">
+                <form id= "assign" action= "/ticketassign" method = "POST">
+                  <table>
+                    <tr>
+                    <th>Members</th>
+                    </tr>
+                  <%
+                  if(groupMembers.length!=0){
+                  var i=1;
+                  groupMembers.forEach(function(groupmembers){
+                  %>
+                    <div>
+                      <tr>
+                        <td>
+                        <input type="radio" id="GroupM" name="GroupM" value = "<%=groupmembers.username%>" required>
+                        <%= groupmembers.username %>
+                      </td>
+                    </div> 
+                    <% i++ })} %>
+                  </table>
+                  <table>
+                    <tr>
+                      <th>Tasks</th>
+                    </tr>
+                    <%
+                      var i=1;
+                      ticketInfo.forEach(function(ticketData){
+                      %>
+                      <div>
+                        <td>
+                        <input type ="radio" id="ticketA" name="ticketA" value = "<%=ticketData.id%>" required>
+                        <%= ticketData.ticketName %>
+                      </td>
+                    </tr>
+                      </div>
+                      <% i++ }) %>
+                    </table>
+                   <button>Assign Ticket</button>
+                  </form>
+                </div>
+                <% if(ticketInfo.length!=0){ %>
+              <span class="all_tasks">Your Created Tasks</span>
+              <div class="overview-boxes">
+              <%
+              var i=1;
+              ticketInfo.forEach(function(ticketData){
+              %>
+                <div class="box">
+                  <div class="right-side">
+                    <div class="number">Ticket Name:<br><%=ticketData.ticketName %></div>
+                    <div class="box-topic">Ticket Description: <br><%=ticketData.ticketDescription %></div>
+                    <div class="create-date">Date of Creation:<br><%=new Date(ticketData.createDate) %></div>
+                    <div class="due-date">Due Date:<br><%=new Date(ticketData.dueDate)%></div>
+                    <div>Status:<% switch(ticketData.ticketstatus){
+                      case 0 : %> UNASSIGNED
+                      <%break; case 1: %> ASSIGNED
+                      <%break; case 2: %> COMPLETED
+                      <%break; default: %> ERROR
+                   <% break;} %><br></div>
+                   <% if (ticketData.ticketstatus == 1){ 
+                    var j = 1;
+                   groupMembers.forEach(function(groupmembers){ 
+                     if(groupmembers.id == ticketData.userIDAssign){ %>
+                      <div>Assigned to: <%=groupmembers.username %></div>
+                      <% }j++ })} %>
+                    <form id= "delete" class = "ticketD" action= "/ticketdelete" method = "POST">
+                    <button name ="ticketD" class="task-delete-btn" value = "<%=ticketData.id%>">Delete Task<i class='bx-fw bx bx-x-circle' ></i></button>
+                    </form>
+                  </div>
+                </div>
+              <% i++ }) %>
+              <% } %>
+            </div>
+            <% if(ticketInfo2.length!=0){ %>
+              <span class="all_tasks">Your Assigned Tasks</span>
+              <div class="overview-boxes">
+              <%
+              var i=1;
+              ticketInfo2.forEach(function(ticketData){
+              %>
+                <div class="box">
+                  <div class="right-side">
+                    <div class="number">Ticket Name:<br><%=ticketData.ticketName %></div>
+                    <div class="box-topic">Ticket Description: <br><%=ticketData.ticketDescription %></div>
+                    <div class="create-date">Date of Creation:<br><%=new Date(ticketData.createDate) %></div>
+                    <div class="due-date">Due Date:<br><%=new Date(ticketData.dueDate)%></div>
+                    <form id= "complete" action= "/ticketcomplete" method = "POST">
+                    <button name = "ticketC" value = "<%=ticketData.id%>" class="task-complete-btn">Done<i class='bx-fw bx bx-check-square' ></i></button>
+                    </form>
+                  </div>
+                </div>
+              <% i++ }) %>
+              <% } %>
+            </div>
             </div>
           </section>
           <script>
-          function showForm(){
-                  document.getElementById("new-task-form").style.display = 'block';
+               let sidebar = document.querySelector(".sidebar");
+               let sidebarBtn = document.querySelector(".sidebarBtn");
+               sidebarBtn.onclick = function() {
+                sidebar.classList.toggle("active");
+                if(sidebar.classList.contains("active")){
+                  sidebarBtn.classList.replace("bx-menu" ,"bx-menu-alt-left");
+                }else
+                  sidebarBtn.classList.replace("bx-menu-alt-left", "bx-menu");
                 }
-              function hideForm(){
-                  document.getElementById("new-task-form").style.display = 'none';
+                function showNewForm(){
+                  var text = document.getElementById("new-task-form");
+                  if (text.style.display === "block") {
+                    text.style.display = "none";
+                  } else {
+                    text.style.display = "block";
+                 }
                 }
+                function showAssignForm(){
+                  var text = document.getElementById("assign-task-form");
+                  if (text.style.display === "block") {
+                    text.style.display = "none";
+                  } else {
+                    text.style.display = "block";
+                 }
+                }
+                function ProfileBtn() {
+              var x = document.getElementById("profile-details");
+              if (x.style.display === "none") {
+              x.style.display = "block";
+              } else {
+              x.style.display = "none";
+              }
+            }
           </script>
     </body>
 </html>
