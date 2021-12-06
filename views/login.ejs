@@ -10,12 +10,15 @@
   </head>
 </head>
 <body>
-<% if (messages.error) { %>
-    <%= messages.error %>
-  <% } %>
+
 <div class="login-page">
+  <div class="title">Task.io</div>
+  <div class="login-page">
   <div class="form">
-     <h1>Sign In</h1> 
+     <h2>Sign In</h2> 
+     <% if (message != 0) { %>
+      <div class = "errorMessage"><%= message %></div>
+    <% } %>
     <form class="login-form" action="/login" method = "POST">
       <div>
         <input type="email" id="email" name="email"
@@ -28,6 +31,7 @@
       <button type = "submit">Login</button>
       </form>
     <p class="message">Not registered? <a href="/register">Create an account.</a></p>
+  </div>
   </div>
 </div>
 </body>

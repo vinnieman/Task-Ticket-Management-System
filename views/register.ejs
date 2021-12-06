@@ -7,12 +7,13 @@
     </head>
   </head>
   <body>
-    <% if (message) { %>
-      <div class="alert alert-info"><%= message %></div>
-  <% } %>
+  <div class="title">Task.io</div>
     <div class="login-page">
         <div class="form">
-  <h1>Sign Up</h1>
+  <h2>Sign Up</h2>
+  <% if (message) { %>
+    <div class="alert alert-info"><%= message %></div>
+<% } %>
 <form action="/register" method = "POST">
  <div>
      <input type="text" id="name" name="name"

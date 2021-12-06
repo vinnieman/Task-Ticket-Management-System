@@ -34,7 +34,7 @@
                 <span class="dashboard">Tasks</span>
               </div>
               <div class="Profile">
-                <button class="profile-btn" onclick="ProfileBtn()"><i class=" bx bxs-user-rectangle"></i>Profile</button>
+                <button class="profile-btn" onclick="ProfileBtn()"><i class='bx-md bx bxs-user' ></i></button>
               </div>
             </nav>
             <div class="profile-details" id="profile-details">
@@ -46,7 +46,7 @@
             </div>
             <div class="home-content">
               <% if (message) { %>
-                <div class="alert alert-info"><%= message %></div>
+                <div class="SuccessMessage"><%= message %></div>
             <% } %>
                 <span class="new_project">Create Task</span>
                 <div class="overview">
@@ -55,6 +55,13 @@
                       <div class="new-project">New Task</div>
                     </div>
                     <button class="new-project-btn" onclick="showNewForm()"><i class="bx-md bx bx-list-plus"></i></button>
+                  </div>
+                <span class="new_project">Assign Task</span>
+                  <div class="box">
+                    <div class="right-side">
+                      <div class="new-project">New Assign</div>
+                    </div>
+                    <button class="new-project-btn" onclick="showAssignForm()"><i class='bx-md bx bx-list-ol'></i></button>
                   </div>
                 </div>
                 <div class="new-task-form" id="new-task-form">
@@ -73,15 +80,6 @@
                    </div>
                    <button>Submit Task</button>
                    </form>
-                </div>
-                <span class="new_project">Assign Task</span>
-                <div class="overview">
-                  <div class="box">
-                    <div class="right-side">
-                      <div class="new-project">New Assign</div>
-                    </div>
-                    <button class="new-project-btn" onclick="showAssignForm()"><i class='bx-md bx bx-list-ol'></i></button>
-                  </div>
                 </div>
                 <div class="assign-task-form" id="assign-task-form">
                 <form id= "assign" action= "/ticketassign" method = "POST">
@@ -132,7 +130,7 @@
               %>
                 <div class="box">
                   <div class="right-side">
-                    <div class="number">Ticket Name:<br><%=ticketData.ticketName %></div>
+                    <div class="number">Task Name:<br><%=ticketData.ticketName %></div>
                     <div class="box-topic">Ticket Description: <br><%=ticketData.ticketDescription %></div>
                     <div class="create-date">Date of Creation:<br><%=new Date(ticketData.createDate) %></div>
                     <div class="due-date">Due Date:<br><%=new Date(ticketData.dueDate)%></div>
