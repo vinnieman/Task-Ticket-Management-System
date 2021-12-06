@@ -13,11 +13,6 @@ const mysql = require('mysql')
 const LocalStrategy = require('passport-local').Strategy
 const con = require('./rdsconn')
 
-var groupname = []
-var groupmembers = []
-var ticketData = []
-var assignTicketData = []
-
 //test if connection succeeds
 con.connect(function(err){
 if (err) throw err
@@ -26,7 +21,7 @@ console.log("Connected!")
 
 
 app.set('view-engine', 'ejs')
-app.use(express.urlencoded({ extended: false}))
+app.use(express.urlencoded({extended: false}))
 app.use(flash())
 app.use(session({
   secret: process.env.SESSION_SECRET,
@@ -45,7 +40,7 @@ passport.use('local', new LocalStrategy({
       con.query('SELECT * FROM users WHERE email = "' + email + '"', function(err, rows){ //Pull row from db into row,
         if(err) throw err
         if(!rows.length) { 
-          return done(null, false, req.flash('message', 'Invalid username.'))}
+          return done(null, false, req.flash('message', 'Invalid email address.'))}
           var dbPassword = rows[0].password
           bcrypt.compare(password, dbPassword, function(err,res){
             if (err) throw err
@@ -66,27 +61,40 @@ app.use('/public', express.static('public'))
 
 //Webpages
 app.get('/', checkAuthenticated, (req, res) => {
-  res.render('index.ejs', { name: req.user.username, group:req.user.groupID, message: req.flash('message')})
+  con.query('SELECT groupName FROM groop WHERE id = "' + req.user.groupID + '"', function(err, rows){ //Pull row from db into row,
+    if (err) throw err
+    var gn = rows
+    con.query('SELECT username, id FROM users WHERE groupID = "' + req.user.groupID + '"', function(err, rows1){ //Pull row from db into row,
+      if (err) throw err
+      var gm = rows1
+      //console.log(groupData)
+      if(req.user.groupID == 0){
+        gm = []
+        gn = []
+      }
+      res.render('index.ejs', {message: req.flash('message'), group:req.user.groupID, groupInfo: gn, groupMembers: gm, name: req.user.username, email: req.user.email})
+      })
+    })
 })
 app.get('/login', checkNotAuthenticated, (req, res) => {
   res.render('login.ejs', {message: req.flash('message')})
 })
+//Login function
 app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/login',
   failureFlash: true }), 
-  function(req, res, info){
+  function(req, res){
     res.render('login.ejs', {message: req.flash('message')})
 })
 app.get('/register', checkNotAuthenticated, (req, res) => {
   res.render('register.ejs', {message: req.flash('message')})
 })
-
+//Register function
 app.post('/register', checkNotAuthenticated, async (req,res) => {
   try {
-    con.query('SELECT * FROM users where email = "'+ req.body.email +'"', async function(err, rows){
-      console.log(err)
-      if (err) return done(req.flash('message', err))
+    con.query('SELECT * FROM users WHERE email = "'+ req.body.email +'"', async function(err, rows, done){
+      if(err) throw err
       if (!rows.length){
         if(req.body.password == req.body.Cpassword) hashedPassword = await bcrypt.hash(req.body.password, 10)
         else req.flash('message', 'Passwords do not match')
@@ -97,7 +105,7 @@ app.post('/register', checkNotAuthenticated, async (req,res) => {
           groupID:0
       } 
       let sql = 'INSERT INTO users SET ?'
-      let query = con.query(sql, userData, (err, result) => {
+      con.query(sql, userData, (err) => {
         if (err) throw err
         console.log("Data Entered!")
       })
@@ -112,28 +120,27 @@ app.post('/register', checkNotAuthenticated, async (req,res) => {
       res.redirect('/register')
   }
 })
-app.get('/groups', checkAuthenticated, fetchGroupData, (req, res) => {
-res.render('groups.ejs', {message: req.flash('message'), group:req.user.groupID, groupInfo: groupname, groupMembers: groupmembers})
-})
-
-app.post('/groups', checkAuthenticated, async (req,res) => {
+//Join group function
+app.post('/groups', checkAuthenticated, (req,res) => {
 try{
   con.query('SELECT * FROM groop where groupName = "'+ req.body.groupname +'"', async function(err, rows){
+    if(err) throw err
   if(!rows.length){
     let groupData = {
       groupName: req.body.groupname,
       groupPassword: req.body.grouppassword,
       groupMembers: ''
     }
-    con.query('INSERT INTO groop SET "'+ groupData+'"', (err, result) => {
+    let sql = 'INSERT INTO groop SET ?'
+    con.query(sql, groupData, (err, result) => {
       if (err) throw err
       console.log("Data Entered!")
     })  
-    res.redirect('/groups')
+    res.redirect('/')
     }
     else {
       req.flash('message', 'Group Name already in use.')
-      res.redirect('/groups')   
+      res.redirect('/')   
       }
     })
   } catch {
@@ -141,10 +148,23 @@ try{
 }
 })
 
-app.get('/tickets', checkAuthenticated, checkIfInGroup, fetchTicketData, (req, res) => {
-res.render('tickets.ejs', {ticketInfo: ticketData, message: req.flash('message')})
-})
+app.get('/tickets', checkAuthenticated, checkIfInGroup, (req, res) => {
+  con.query('SELECT username, id FROM users WHERE groupID = "' + req.user.groupID + '"', function(err, rows){ //Pull row from db into row,
+    if (err) throw err
+    gm = rows
+    con.query('SELECT * FROM tickets WHERE groupID = "' + req.user.groupID + '"AND userIDCreate = "' +req.user.id + '"', function(err, rows){ //Pull row from db into row,
+      if (err) throw err
+      tD = rows
+      con.query('SELECT * FROM tickets WHERE userIDAssign = "' + req.user.id + '"', function(err, rows){ //Pull row from db into row,
+        if (err) throw err
+        aTD = rows
+        res.render('tickets.ejs', {ticketInfo: tD, ticketInfo2: aTD, groupMembers:gm, message: req.flash('message'), name: req.user.username, email: req.user.email})
+        })
+      })
+    })
 
+})
+//Create ticket function
 app.post('/tickets', checkAuthenticated, checkIfInGroup, async (req,res) => {
 try{
   var Datetime = req.body.dueTime
@@ -158,7 +178,8 @@ try{
     userIDCreate: req.user.id,
     ticketstatus: 0
 } 
-  con.query('INSERT INTO tickets SET "'+ ticketData + '"' , (err, result) => {
+let sql = 'INSERT INTO tickets SET ?'
+con.query(sql,ticketData , (err) => {
   if (err) throw err
 })
   req.flash('message', 'Ticket successfully saved to database.')
@@ -167,12 +188,42 @@ try{
     res.redirect('/')
   }
 })
-
+app.post('/ticketassign', checkAuthenticated, checkIfInGroup, async (req,res) => {
+  try{
+    con.query('SELECT id FROM users WHERE username = "'+ req.body.GroupM +'"AND groupID = "' + req.user.groupID +'"', function(err,rows){
+    if (err) throw err
+     con.query('UPDATE tickets SET userIDAssign = "' + rows[0].id +'", ticketstatus = 1 WHERE id = "'+ req.body.ticketA +'"') 
+    })
+    
+    res.redirect('/tickets')
+  } catch {
+      res.redirect('/')
+    }
+  })
+  app.post('/ticketcomplete', checkAuthenticated, checkIfInGroup, async (req,res) => {
+    try{
+      con.query('UPDATE tickets SET ticketstatus = 2, userIDAssign = NULL WHERE id = "'+ req.body.ticketC +'"') 
+      res.redirect('/tickets')
+    } catch {
+        res.redirect('/')
+      }
+    })
+    app.post('/ticketdelete', checkAuthenticated, checkIfInGroup, async (req,res) => {
+      try{
+        con.query('DELETE FROM tickets WHERE id = "'+ req.body.ticketD +'"',  function(err, rows){
+          if(err)throw(err)
+             else {
+              req.flash('message', 'Ticket deleted.')
+              res.redirect('/tickets') 
+             }})
+      } catch {
+          res.redirect('/')
+        }
+      })
 app.post('/joinGroup', checkAuthenticated, checkIfNotInGroup, async (req,res,done) => {
   try{
     con.query('SELECT * FROM groop WHERE groupName = "'+ req.body.groupName1+ '"', function(err, rows){ //Pull row from db into row,
       if (err) throw err
-      if (err) return done(req.flash('message', err))
       if(!rows.length) { 
         return done(null, false, req.flash('message', 'Invalid group name or password.'))}
       if(req.body.groupPassword1 !== rows[0].groupPassword){
@@ -191,17 +242,11 @@ app.post('/joinGroup', checkAuthenticated, checkIfNotInGroup, async (req,res,don
 })
 app.delete('/logout', (req, res) => {
   req.logOut()
-  groupname = []
-  groupmembers = []
-  ticketData = []
   res.redirect('/login')
 })
 app.delete('/leavegroup', (req,res) => {
   con.query('UPDATE users SET groupID = 0 WHERE id = "'+req.user.id+'"')
   req.flash('message', 'Successfully left group.')
-  groupmembers = []
-  groupname = []
-  ticketData = []
   res.redirect('/')
 })
 function checkAuthenticated(req, res, next) {
@@ -217,35 +262,6 @@ function checkNotAuthenticated(req, res, next) {
   }
   next()
 }
-function fetchGroupData(req, res, next) {
-  if(req.user.groupID != 0){
-  con.query('SELECT groupName FROM groop WHERE id = "' + req.user.groupID + '"', function(err, rows){ //Pull row from db into row,
-    if (err) throw err
-    groupname = rows
-    //console.log(groupData)
-    })
-
-    con.query('SELECT username FROM users WHERE groupID = "' + req.user.groupID + '"', function(err, rows){ //Pull row from db into row,
-      if (err) throw err
-      groupmembers = rows
-      //console.log(groupData)
-      })
-    }
-    return next()
-}
-function fetchTicketData(req, res, next) {
-  con.query('SELECT * FROM tickets WHERE groupID = "' + req.user.groupID + '"AND userIDCreate = "' +req.user.id + '"', function(err, rows){ //Pull row from db into row,
-    if (err) throw err
-    ticketData = rows
-    console.log(ticketData)
-    })
-  con.query('SELECT * FROM tickets WHERE userIDAssign = "' + req.user.id + '"', function(err, rows){ //Pull row from db into row,
-      if (err) throw err
-      assignTicketData = rows
-      console.log(ticketData)
-      })
-    return next()
-}
 
 function checkIfInGroup(req, res, next) {
   if (req.user.groupID !== 0) {
@@ -260,7 +276,5 @@ function checkIfNotInGroup(req, res, next) {
   }
   req.flash('message', 'Please leave your group.')
   res.redirect('/')
-
 }
-
 app.listen(80)
