@@ -145,30 +145,46 @@
     font-size: 22px;
     transition: all 0.4 ease;
   }
-  .home-section nav .profile-details{
+  .home-section nav .profile-btn{
     display: flex;
     align-items: center;
     background: #F5F6FA;
-    border: 2px solid #EFEEF1;
     border-radius: 6px;
     height: 50px;
     min-width: 150px;
     padding: 0 15px 0 2px;
+    font-size: 24px;
   }
-
-  nav .profile-details .admin_name{
-    font-size: 15px;
-    font-weight: 500;
-    color: #333;
-    margin: 0 10px;
+  .home-section .profile-details{
+    z-index: 101;
+    top: 10%;
+    right: 2%;
+    align-items: center;
+    position: absolute;
+    background: #2697FF;
+    border-radius: 4px;
+    padding: 15px;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+    display: none;
   }
-  nav .profile-details button .btn{
-      background-color: none;
+  .home-section .profile-details .Name, .userName,.userEmail,.userSince{
+    padding-bottom: 25px;
   }
-  nav .profile-details i{
-    font-size: 25px;
-    color: #333;
+  .home-section .profile-details .Name{
+    font-size: 26px;
+  }
+  .home-section .profile-details .userName,.userEmail,.userSince{
+    font-size: 16px;
+  }
+  button.close-profile-btn{
+    font-size: 10pt;
+    font-weight: bold;
+    padding: 5px;
+    background: #F5F6FA;
+    border-radius: 5px;
+    margin-left: 30%;
   }
   .home-section .home-content{
     position: relative;
@@ -180,51 +196,38 @@
     justify-content: space-between;
     flex-wrap: wrap;
     padding: 0 20px;
-    margin-bottom: 26px;
   }
-  .overview-boxes .box{
+  .overview-boxes .box,.overview .box{
     display: flex;
     align-items: center;
     justify-content: center;
     width: calc(100% / 4 - 15px);
     background: #fff;
     padding: 15px 14px;
+    margin-bottom: 20px;
     border-radius: 12px;
     box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-    margin-top: 10px;
   }
-  .overview-boxes .box-topic{
+  .overview-boxes .box-topic .name{
     font-size: 20px;
     font-weight: 500;
   }
-  .home-content .box .number{
+  .overview-boxes .box .project-link,.new-project-btn{
+    color: #2697FF;
+    background: #F5F6FA;
+    border-radius: 6px;
+  }
+  .home-content .box .number, .new-project,.join-project{
     display: inline-block;
-    font-size: 35px;
+    font-size: 28px;
     margin-top: -6px;
     font-weight: 500;
+    overflow: hidden;
+    text-overflow: clip;
+    white-space: nowrap;
+    padding-right: 5px;
   }
-  .home-content .box .indicator{
-    display: flex;
-    align-items: center;
-  }
-  .home-content .box .indicator i{
-    height: 20px;
-    width: 20px;
-    background: #8FDACB;
-    line-height: 20px;
-    text-align: center;
-    border-radius: 50%;
-    color: #fff;
-    font-size: 20px;
-    margin-right: 5px;
-  }
-  .box .indicator i.down{
-    background: #e87d88;
-  }
-  .home-content .box .indicator .text{
-    font-size: 12px;
-  }
-  .home-content .new_project{
+  .home-content .new_project, .join_project {
       font-size: 20pt;
       padding:  10px;
   }
@@ -240,7 +243,7 @@
       font-size: 20pt;
       padding: 10px;
   }
-  .home-content .new-project-form{
+  .home-content .new-project-form, .join-project-form{
     max-width:300px;
     min-width:250px;
     margin-left: 20px;
