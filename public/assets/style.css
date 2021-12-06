@@ -1,5 +1,19 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
-
+.title{
+  padding: 10px;
+  margin-left: 43%;
+  font-size: 60px;
+  font-weight: bolder;
+}
+.errorMessage{
+  font-size: 24px;
+  font-weight: bold;
+  color: tomato;
+  margin-bottom: 20px;
+}
+h2{
+  margin-bottom: 60px;
+}
 .login-page {
   width: 360px;
   padding: 8% 0 0;

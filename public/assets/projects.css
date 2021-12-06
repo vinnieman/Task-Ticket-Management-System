@@ -113,47 +113,19 @@
     font-size: 35px;
     margin-right: 10px;
   }
-  .home-section nav .search-box{
-    position: relative;
-    height: 50px;
-    max-width: 550px;
-    width: 100%;
-    margin: 0 20px;
-  }
-  nav .search-box input{
-    height: 100%;
-    width: 100%;
-    outline: none;
-    background: #F5F6FA;
-    border: 2px solid #EFEEF1;
-    border-radius: 6px;
-    font-size: 18px;
-    padding: 0 15px;
-  }
-  nav .search-box .bx-search{
-    position: absolute;
-    height: 40px;
-    width: 40px;
-    background: #2697FF;
-    right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
-    border-radius: 4px;
-    line-height: 40px;
-    text-align: center;
-    color: #fff;
-    font-size: 22px;
-    transition: all 0.4 ease;
-  }
-  .home-section nav .profile-btn{
+  .profile-btn{
     display: flex;
     align-items: center;
-    background: #F5F6FA;
+    background: #c0c0c0;
+    color: #2697FF;
     border-radius: 6px;
     height: 50px;
-    min-width: 150px;
-    padding: 0 15px 0 2px;
-    font-size: 24px;
+    padding: 10px;
+    border: none;
+  }
+  .profile-btn:hover{
+    background: #081D45;
+    color: #c0c0c0;
   }
   .home-section .profile-details{
     z-index: 101;
@@ -161,30 +133,39 @@
     right: 2%;
     align-items: center;
     position: absolute;
-    background: #2697FF;
+    background: #F5F6FA;
+    border: 2px solid black;
     border-radius: 4px;
-    padding: 15px;
+    padding: 25px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: clip;
     display: none;
   }
-  .home-section .profile-details .Name, .userName,.userEmail,.userSince{
-    padding-bottom: 25px;
+  .Name{
+    font-size: 35px;
   }
-  .home-section .profile-details .Name{
-    font-size: 26px;
-  }
-  .home-section .profile-details .userName,.userEmail,.userSince{
-    font-size: 16px;
+  .userName,.userEmail,.userSince{
+    font-size: 18px;
   }
   button.close-profile-btn{
     font-size: 10pt;
     font-weight: bold;
     padding: 5px;
-    background: #F5F6FA;
+    background: #c0c0c0;
+    color: #2697FF;
     border-radius: 5px;
     margin-left: 30%;
+    margin-top: 20px;
+  }
+  .leave-group-btn{
+    margin-left: 10px;
+  }
+  button.submitBtn,button.leave-group-btn{
+    font-size: medium;
+    padding: 5px;
+    margin-top: 5px;
+    border-radius: 5px;
   }
   .home-section .home-content{
     position: relative;
@@ -193,31 +174,71 @@
   .home-content .overview-boxes{
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-wrap: wrap;
     padding: 0 20px;
+    margin-left: -20px;
   }
-  .overview-boxes .box,.overview .box{
+  .no-group-box{
     display: flex;
     align-items: center;
     justify-content: center;
-    width: calc(100% / 4 - 15px);
+    width: calc(100% / 3 - 20px);
+    background: #fff;
+    padding: 15px 14px;
+    border-radius: 12px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    margin-top: -25%;
+    margin-left: 20px;
+  }
+  .overview-boxes .box,.overview .box,.successMessage,.errorMessage{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% / 3 - 20px);
     background: #fff;
     padding: 15px 14px;
     margin-bottom: 20px;
     border-radius: 12px;
+    margin-left: 20px;
     box-shadow: 0 5px 10px rgba(0,0,0,0.1);
   }
+  .successMessage{
+    background: springgreen;
+    font-weight: bolder;
+  }
+  .errorMessage{
+    background: tomato;
+    font-weight: bolder;
+  }
   .overview-boxes .box-topic .name{
-    font-size: 20px;
+    font-size: 26px;
+    font-weight: bold;
+  }
+  .userEmail,.userSince,.userName{
+    font-size: 18px;
     font-weight: 500;
   }
-  .overview-boxes .box .project-link,.new-project-btn{
-    color: #2697FF;
-    background: #F5F6FA;
-    border-radius: 6px;
+  .userNameHeader, .userEmailHeader, .userSinceHeader{
+    font-size: 16px;
+    font-weight: lighter;
   }
-  .home-content .box .number, .new-project,.join-project{
+  .project-link,.new-project-btn{
+    color: #2697FF;
+    background: #c0c0c0;
+    border-radius: 6px;
+    margin-left: 10px;
+    margin-bottom: 15px;
+  }
+  .project-link:hover,.new-project-btn:hover{
+    color:#c0c0c0;
+    background: #081D45;
+  }
+  .name,.number,.project-members{
+    font-size: 22px;
+    margin-left: 20px;
+  }
+  .projectNumber, .new-project,.join-project{
     display: inline-block;
     font-size: 28px;
     margin-top: -6px;
@@ -226,6 +247,10 @@
     text-overflow: clip;
     white-space: nowrap;
     padding-right: 5px;
+  }
+  textarea{
+    resize: none;
+    width: 210px;
   }
   .home-content .new_project, .join_project {
       font-size: 20pt;
@@ -243,7 +268,7 @@
       font-size: 20pt;
       padding: 10px;
   }
-  .home-content .new-project-form, .join-project-form{
+  .new-project-form,.join-project-form{
     max-width:300px;
     min-width:250px;
     margin-left: 20px;
@@ -253,6 +278,10 @@
     border-radius:10px;
     background-color:#fff;
     display: none;
+  }
+  .header{
+    margin: 10px;
+    font-weight: lighter;
   }
   
   /* Responsive Media Query */
