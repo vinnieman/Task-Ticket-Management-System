@@ -96,7 +96,7 @@ app.post('/register', checkNotAuthenticated, async (req,res) => {
     con.query('SELECT * FROM users WHERE email = "'+ req.body.email +'"', async function(err, rows, done){
       if(err) throw err
       if (!rows.length){
-        if(req.body.password == req.body.Cpassword) hashedPassword = await bcrypt.hash(req.body.password, 10)
+        if(req.body.password == req.body.Cpassword) var hashedPassword = await bcrypt.hash(req.body.password, 10)
         else req.flash('message', 'Passwords do not match')
         let userData = {
           username: req.body.name,
