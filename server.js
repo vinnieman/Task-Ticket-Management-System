@@ -139,7 +139,7 @@ try{
     res.redirect('/')
     }
     else {
-      req.flash('message', 'Group Name already in use.')
+      req.flash('message', 'Project Name already in use.')
       res.redirect('/')   
       }
     })
@@ -225,14 +225,14 @@ app.post('/joinGroup', checkAuthenticated, checkIfNotInGroup, async (req,res,don
     con.query('SELECT * FROM groop WHERE groupName = "'+ req.body.groupName1+ '"', function(err, rows){ //Pull row from db into row,
       if (err) throw err
       if(!rows.length) { 
-        return done(null, false, req.flash('message', 'Invalid group name or password.'))}
+        return done(null, false, req.flash('message', 'Invalid project name or password.'))}
       if(req.body.groupPassword1 !== rows[0].groupPassword){
-        return done(null,false, req.flash('message', 'Invalid group name or password.'))
+        return done(null,false, req.flash('message', 'Invalid project name or password.'))
     }
       else {
         req.user.groupID = rows[0].id
         con.query('UPDATE users SET groupID = "'+ rows[0].id +'" WHERE id = "'+ req.user.id +'"')
-        return done(null,rows[0])
+        return done(null,rows[0], req.flash('message', 'Project created.'))
       }
     })
     res.redirect('/')
@@ -246,7 +246,7 @@ app.delete('/logout', (req, res) => {
 })
 app.delete('/leavegroup', (req,res) => {
   con.query('UPDATE users SET groupID = 0 WHERE id = "'+req.user.id+'"')
-  req.flash('message', 'Successfully left group.')
+  req.flash('message', 'Successfully left project.')
   res.redirect('/')
 })
 function checkAuthenticated(req, res, next) {
@@ -267,14 +267,14 @@ function checkIfInGroup(req, res, next) {
   if (req.user.groupID !== 0) {
     return next()
   }
-  req.flash('message','Please join a group.')
+  req.flash('message','Please join a project.')
   res.redirect('/')
 }
 function checkIfNotInGroup(req, res, next) {
   if (req.user.groupID == 0) {
     return next()
   }
-  req.flash('message', 'Please leave your group.')
+  req.flash('message', 'Please leave your project.')
   res.redirect('/')
 }
 app.listen(80)
