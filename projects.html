@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="UTF-8">
+        <title>task.io | Projects</title>
+        <link rel="stylesheet" href="projects.css">
+        <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    </head>
+    <body>
+        <div class="sidebar">
+            <div class="logo-details">
+              <i class='bx bx-menu sidebarBtn'></i>
+              <span class="logo_name">Task.io</span>
+            </div>
+              <ul class="nav-links">
+                <li>
+                  <a href="projects.html" class="active">
+                    <i class='bx bx-box' ></i>
+                    <span class="links_name">Projects</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="projectOverview.html">
+                    <i class='bx bxl-stack-overflow' ></i>
+                    <span class="links_name">Project Overview</span>
+                  </a>
+                </li>
+              </ul>
+          </div>
+          <section class="home-section">
+            <nav>
+              <div class="sidebar-button">
+                <i class='bx bx-notepad'></i>
+                <span class="dashboard">Projects</span>
+              </div>
+              <div class="Profile">
+                <button class="profile-btn" onclick="ProfileBtn()"><i class="bx-md bx bxs-user"></i></button>
+              </div>
+            </nav>
+            <div class="profile-details" id="profile-details">
+              <div class="Name">John Smith</div>
+              <div class="userNameHeader">Username</div>
+              <div class="userName">dummy123</div>
+              <div class="userEmailHeader">Email</div>
+              <div class="userEmail">dummytest@gmail.com</div>
+              <div class="userSinceHeader">User Since</div>
+              <div class="userSince">October 30 2021</div>
+              <button class="close-profile-btn">Log Out<i class='bx-fw bx bx-log-out' ></i></button>
+            </div>
+            <div class="home-content">
+                <span class="new_project">Project Manager</span>
+                <div class="overview">
+                  <div class="box">
+                    <div class="right-side">
+                      <div class="new-project">New Project</div>
+                    </div>
+                    <button class="new-project-btn" onclick="newProjectBtn()"><i class="bx-md bx bx-list-plus"></i></button>
+                  </div>
+                  <div class="box">
+                    <div class="right-side">
+                      <div class="new-project">Join Project</div>
+                    </div>
+                    <button class="new-project-btn" onclick="joinProjectBtn()"><i class="bx-md bx bx-list-check"></i></button>
+                  </div>
+                </div>
+                <div class="new-project-form" id="new-project-form">
+                    <form id ="newProjectForm">
+                      <div class="header">Project Name</div>
+                      <input id ="name" name ="name" placeholder="ex. test name" type ="text">
+                      <div class="header">Project Description</div>
+                      <textarea id ="description" name="description" placeholder="ex. description of project"></textarea>
+                      <button class="submitBtn" onclick="">Submit</button>
+                    </form>
+                </div>
+                <div class="join-project-form" id="join-project-form">
+                  <form id="joinProjectForm">
+                    <div class="header">Project Name</div>
+                    <input id="name" type="text" placeholder="ex. taskforce">
+                    <div class="header">Password</div>
+                    <input id="pass" type="password" placeholder="ex. pass123">
+                    <button class="submitBtn" onclick="">Submit</button>
+                  </form>
+                </div>
+              <span class="all_projects">Your Projects</span>
+              <div class="overview-boxes">
+                <div class="box">
+                  <div class="right-side">
+                    <div class="number">Project #1</div>
+                    <div class="header">Project Name</div>
+                    <div class="name">Test Name</div>
+                    <div class="header">Total Tasks</div>
+                    <div class="number">5</div>
+                    <div class="header">Team Members</div>
+                    <div class= "project-members">John Smith, Jen Williams, Kyle Logan,Jake Paul</div>
+                  </div>
+                  <button class="project-link"><i class='bx-md bx bx-right-arrow-alt' ></i></button>
+                </div>
+                <div class="box">
+                  <div class="right-side">
+                    <div class="number">Project #2</div>
+                    <div class="header">Project Name</div>
+                    <div class="name">Test Name</div>
+                    <div class="header">Total Tasks</div>
+                    <div class="number">7</div>
+                    <div class="header">Team Members</div>
+                    <div class= "project-members">John Smith, Jen Williams, Kyle Logan,Jake Paul</div>
+                  </div>
+                  <button class="project-link"><i class='bx-md bx bx-right-arrow-alt' ></i></button>
+                </div>
+                <div class="box">
+                  <div class="right-side">
+                    <div class="number">Project #3</div>
+                    <div class="header">Project Name</div>
+                    <div class="name">Test Name</div>
+                    <div class="header">Total Tasks</div>
+                    <div class="number">9</div>
+                    <div class="header">Team Members</div>
+                    <div class= "project-members">John Smith, Jen Williams, Kyle Logan,Jake Paul</div>
+                  </div>
+                  <button class="project-link"><i class='bx-md bx bx-right-arrow-alt' ></i></button>
+                </div>
+                <div class="box">
+                  <div class="right-side">
+                    <div class="number">Project #4</div>
+                    <div class="header">Project Name</div>
+                    <div class="name">Test Name</div>
+                    <div class="header">Total Tasks</div>
+                    <div class="number">2</div>
+                    <div class="header">Team Members</div>
+                    <div class= "project-members">John Smith, Jen Williams, Kyle Logan,Jake Paul</div>
+                  </div>
+                  <button class="project-link"><i class='bx-md bx bx-right-arrow-alt' ></i></button>
+                </div>
+              </div>
+            </div>
+          </section>
+          <script>
+               let sidebar = document.querySelector(".sidebar");
+               let sidebarBtn = document.querySelector(".sidebarBtn");
+               sidebarBtn.onclick = function() {
+                sidebar.classList.toggle("active");
+                if(sidebar.classList.contains("active")){
+                  sidebarBtn.classList.replace("bx-menu" ,"bx-menu-alt-left");
+                }else
+                  sidebarBtn.classList.replace("bx-menu-alt-left", "bx-menu");
+                }
+                function newProjectBtn() {
+                    var x = document.getElementById("new-project-form");
+                    if (x.style.display === "none") {
+                    x.style.display = "block";
+                    } else {
+                    x.style.display = "none";
+                    }
+                }
+                function joinProjectBtn() {
+                    var x = document.getElementById("join-project-form");
+                    if (x.style.display === "none") {
+                    x.style.display = "block";
+                    } else {
+                    x.style.display = "none";
+                    }
+                }
+                function ProfileBtn() {
+                  var x = document.getElementById("profile-details");
+                  if (x.style.display === "none") {
+                  x.style.display = "block";
+                  } else {
+                  x.style.display = "none";
+              }
+            }
+          </script>
+    </body>
+</html>
